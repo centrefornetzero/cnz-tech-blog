@@ -1,3 +1,24 @@
+# Deploying a Docker a Google Cloud Run service
+This is a tutorial guide on a bare minimum github action workflow to deploy a Google Cloud Run service
+
+---
+
+### Couple of things to note:
+1. You need to create a service account credentials with necessary permissions (see [docs](https://cloud.google.com/api-gateway/docs/configure-dev-env))
+2. `SERVICE_ACCOUNT_KEY` refers to the JSON Key of your service account which should be stored as a Github repository secret (see [docs](https://cloud.google.com/iam/docs/creating-managing-service-account-keys))
+3. `SERVICE_ACCOUNT_NAME` refers to the email address of the service account
+
+### What this Github Action does:
+
+1. `Google Auth`: Authenticate with Google Cloud using the service account credentials
+2. `Create API Config`: Creates API config with `gcloud` command line, using the Swagger 2.0 specs named `api_config.yaml`
+3. `Deploy API Gateway`: Deploys the API Config to the API Gateway. This step also outputs 2 variables: `MANAGED_SERVICE_URL` and `GATEWAY_URL`
+   - `MANAGED_SERVICE_URL` is a google managed service that we need to enable to enable API Gateway
+   - `GATEWAY_URL` is the URL that end users will use too access the API Gateway
+
+### YAML File
+```yaml
+
 name: Push Docker Image to Google Artifact Registry
 
 on: [push]
@@ -53,3 +74,4 @@ jobs:
       - name: Get API Gateway URL
         run: |
           echo ${{ steps.deploy-api-gateway.outputs.GATEWAY_URL }}
+```

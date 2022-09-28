@@ -1,15 +1,15 @@
 # Pushing Docker Image to Google Artifact Registry
 This is a tutorial guide on a bare minimum github action workflow to deploy docker images to Google Artifact Registry.
 
+---
 
-
-### Couple of things to note:
+## Couple of things to note:
 1. You need to create a service account credentials with permissions needed to push images to Google Artifact Registry
 2. `SERVICE_ACCOUNT_KEY` refers to the JSON Key of your service account which should be stored as a Github repository secret (see [docs](https://cloud.google.com/iam/docs/creating-managing-service-account-keys))
 
 
 
-### What this Github Action does:
+## What this Github Action does:
 
 1. `Google Auth`: Authenticate with Google Cloud using the service account credentials
 2. `Build images`: Builds the docker image as prescribed in `Dockerfile` and naming it after the repo name + github commit SHA
@@ -17,7 +17,7 @@ This is a tutorial guide on a bare minimum github action workflow to deploy dock
 4. `Tag Latest Images`: Tags the docker image we've just pushed with `latest` so we can select the latest image with just the `latest` tag without needing the commit SHA
 
 
-### YAML file
+## YAML file
 ```yaml
 name: Push Docker Image to Google Artifact Registry
 
