@@ -1,0 +1,36 @@
+info:
+  description: "Welcome to the Centre For Net Zero Tech Blog"
+  title: cnz-tech-blog
+  version: 0.0.3
+paths:
+  "/":
+    get:
+      operationId: root__get
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: string
+      summary: Root
+  "/predict":
+    post:
+      operationId: predict_predict__post
+      responses:
+        200:
+          description: Successful Response
+          schema:
+            type: string
+produces:
+- application/json
+schemes:
+- https
+security:
+- api_key: []
+securityDefinitions:
+  api_key:
+    in: header
+    name: x-api-key
+    type: apiKey
+swagger: "2.0"
+x-google-backend:
+  address: cloud_run_service_url
